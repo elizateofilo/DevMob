@@ -11,9 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
-
-  english_words: ^4.0.0
   faker: ^2.1.0
   provider: ^6.0.0
 
