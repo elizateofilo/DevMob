@@ -21,6 +21,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Montserrat',
+      ),
       home: LoginPage(),
     );
   }
@@ -33,24 +38,27 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Login'),
+        backgroundColor: Colors.black,
+      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Tela de Login',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
               SizedBox(height: 16),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  prefixIcon: Icon(Icons.email, color: Colors.black),
+                  fillColor: Colors.white,
+                  filled: true,
                 ),
               ),
               SizedBox(height: 16),
@@ -58,17 +66,21 @@ class LoginPage extends StatelessWidget {
                 controller: senhaController,
                 decoration: InputDecoration(
                   labelText: 'Senha',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  prefixIcon: Icon(Icons.lock, color: Colors.black),
+                  fillColor: Colors.white,
+                  filled: true,
                 ),
                 obscureText: true,
               ),
               SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  
                   String email = emailController.text;
                   String senha = senhaController.text;
 
-                  
                   if (email.isNotEmpty && senha.isNotEmpty) {
                     User user = User(email: email);
                     Navigator.push(
@@ -83,6 +95,13 @@ class LoginPage extends StatelessWidget {
                     );
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue,
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
                 child: Text('Entrar'),
               ),
             ],
@@ -103,6 +122,7 @@ class MenuPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Menu'),
+        backgroundColor: Colors.black,
       ),
       drawer: MyDrawer(user: user),
       body: Center(
@@ -114,14 +134,31 @@ class MenuPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
             ),
             SizedBox(height: 16),
-            Image.asset(
-              'image/01.jpg', 
-              width: 650,
-              height: 450,
-              fit: BoxFit.cover,
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: Image.asset(
+                  'image/01.jpg',
+                  width: 250,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ],
         ),
@@ -143,7 +180,7 @@ class MyDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.black,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +189,7 @@ class MyDrawer extends StatelessWidget {
                   backgroundColor: Colors.white,
                   child: Icon(
                     Icons.person,
-                    color: Colors.blue,
+                    color: Colors.black,
                   ),
                 ),
                 SizedBox(height: 8),
@@ -167,7 +204,26 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text('Cadastro 1'),
+            title: Text(
+              'Cadastro 1',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CadastroPage(title: 'Cadastro 1')),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Cadastro 2',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -176,16 +232,12 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Cadastro 2'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CadastroPage(title: 'Cadastro 2')),
-              );
-            },
-          ),
-          ListTile(
-            title: Text('Cadastro 3'),
+            title: Text(
+              'Cadastro 3',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -194,7 +246,26 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Lista de Cadastros'),
+            title: Text(
+              'Cadastro 4',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CadastroPage(title: 'Cadastro 4')),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Lista de Cadastros',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -226,6 +297,7 @@ class _CadastroPageState extends State<CadastroPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.black,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -233,27 +305,40 @@ class _CadastroPageState extends State<CadastroPage> {
           children: [
             TextField(
               controller: nomeController,
-              decoration: InputDecoration(labelText: 'Nome *'),
+              decoration: InputDecoration(
+                labelText: 'Nome *',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                prefixIcon: Icon(Icons.person, color: Colors.black),
+                fillColor: Colors.white,
+                filled: true,
+              ),
             ),
+            SizedBox(height: 16),
             TextField(
               controller: descricaoController,
-              decoration: InputDecoration(labelText: 'Descrição (opcional)'),
+              decoration: InputDecoration(
+                labelText: 'Descrição (opcional)',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                prefixIcon: Icon(Icons.description, color: Colors.black),
+                fillColor: Colors.white,
+                filled: true,
+              ),
             ),
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-               
                 if (nomeController.text.isNotEmpty) {
-                 
                   Cadastro novoCadastro = Cadastro(
                     nome: nomeController.text,
                     descricao: descricaoController.text,
                   );
 
-                 
                   listaCadastros.add(novoCadastro);
 
-               
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Cadastro salvo com sucesso!'),
@@ -263,7 +348,6 @@ class _CadastroPageState extends State<CadastroPage> {
                   nomeController.clear();
                   descricaoController.clear();
                 } else {
-                 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('O campo de nome é obrigatório.'),
@@ -271,6 +355,13 @@ class _CadastroPageState extends State<CadastroPage> {
                   );
                 }
               },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                onPrimary: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
               child: Text('Salvar Cadastro'),
             ),
           ],
@@ -291,29 +382,34 @@ class _ListaCadastrosPageState extends State<ListaCadastrosPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Lista de Cadastros'),
+        backgroundColor: Colors.black,
       ),
       body: ListView.builder(
         itemCount: listaCadastros.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(listaCadastros[index].nome),
-            subtitle: Text(listaCadastros[index].descricao),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {
-                    _editarCadastro(context, index);
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    _deletarCadastro(context, index);
-                  },
-                ),
-              ],
+          return Card(
+            elevation: 5.0,
+            margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: ListTile(
+              title: Text(listaCadastros[index].nome),
+              subtitle: Text(listaCadastros[index].descricao),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.edit, color: Colors.blue),
+                    onPressed: () {
+                      _editarCadastro(context, index);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      _deletarCadastro(context, index);
+                    },
+                  ),
+                ],
+              ),
             ),
           );
         },
@@ -322,7 +418,6 @@ class _ListaCadastrosPageState extends State<ListaCadastrosPage> {
   }
 
   void _editarCadastro(BuildContext context, int index) {
-  
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -339,7 +434,6 @@ class _ListaCadastrosPageState extends State<ListaCadastrosPage> {
   }
 
   void _deletarCadastro(BuildContext context, int index) {
-    
     showDialog(
       context: context,
       builder: (context) {
@@ -349,13 +443,12 @@ class _ListaCadastrosPageState extends State<ListaCadastrosPage> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); 
+                Navigator.pop(context);
               },
               child: Text('Cancelar'),
             ),
             TextButton(
               onPressed: () {
-             
                 setState(() {
                   listaCadastros.removeAt(index);
                 });
@@ -403,28 +496,41 @@ class _EditCadastroPageState extends State<EditCadastroPage> {
           children: [
             TextField(
               controller: nomeController,
-              decoration: InputDecoration(labelText: 'Nome *'),
+              decoration: InputDecoration(
+                labelText: 'Nome *',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                prefixIcon: Icon(Icons.person, color: Colors.black),
+                fillColor: Colors.white,
+                filled: true,
+              ),
             ),
+            SizedBox(height: 16),
             TextField(
               controller: descricaoController,
-              decoration: InputDecoration(labelText: 'Descrição (opcional)'),
+              decoration: InputDecoration(
+                labelText: 'Descrição (opcional)',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                prefixIcon: Icon(Icons.description, color: Colors.black),
+                fillColor: Colors.white,
+                filled: true,
+              ),
             ),
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                
                 if (nomeController.text.isNotEmpty) {
-                  
                   Cadastro cadastroAtualizado = Cadastro(
                     nome: nomeController.text,
                     descricao: descricaoController.text,
                   );
 
-                 
                   widget.onUpdate(cadastroAtualizado);
                   Navigator.pop(context);
                 } else {
-                 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('O campo de nome é obrigatório.'),
@@ -432,6 +538,13 @@ class _EditCadastroPageState extends State<EditCadastroPage> {
                   );
                 }
               },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                onPrimary: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
               child: Text('Salvar'),
             ),
           ],
@@ -440,4 +553,5 @@ class _EditCadastroPageState extends State<EditCadastroPage> {
     );
   }
 }
+
 List<Cadastro> listaCadastros = [];
